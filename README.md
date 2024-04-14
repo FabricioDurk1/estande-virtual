@@ -10,3 +10,10 @@
  - Rode ``npm install`` para instalar as dependências do projeto
  - Rode ``npm run dev`` para rodar o projeto na porta 5173
  - Acesse o endereço http://localhost:5053/ para acessar o projeto
+
+### Backend:
+ - Acesse a pasta backend na sua IDE de preferência
+ - Acesse o arquivo JdbcConfig e altera as credenciais de acesso ao seu banco de dados local
+ - Rode a aplicação
+ - Acesse a aplicação através do endereço http://localhost:8080/
+ 
