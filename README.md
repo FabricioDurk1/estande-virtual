@@ -14,6 +14,7 @@
 ### Backend:
  - Acesse a pasta backend na sua IDE de preferência
  - Acesse o arquivo JdbcConfig e altera as credenciais de acesso ao seu banco de dados local
+ - Rode os comandos SQL localizados na pasta webservice/database/database.sql para atualizar criar o seu banco de dados
  - Rode a aplicação
  - Acesse a aplicação através do endereço http://localhost:8080/
  
