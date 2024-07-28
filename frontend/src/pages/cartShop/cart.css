@@ -1,0 +1,56 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.motherDiv{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.totalCart{
+    font-weight: 300;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.5rem;
+    color: #565959;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.selectionCart{
+    font-weight: 300;
+    font-family: "Arial", Helvetica, sans-serif;
+    font-size: 2rem;
+    color: #565959;
+    margin-left: 15px;
+    margin-top: 10px;
+}
+
+hr{
+    width: 95%;
+    padding: auto;
+    margin: auto;
+}
+
+.cartSelection{
+    width: 694px;
+    height: 528px;
+    background-color: #ffffff; 
+    margin-top: 15px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.cartTotal{
+    width: 287px;
+    height: 271px;
+    background-color: #ffffff;
+    margin-top: 15px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+
+
+
