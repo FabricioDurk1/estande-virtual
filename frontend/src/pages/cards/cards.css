@@ -1,0 +1,8 @@
+.general-books{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-start;
+    margin-left: 90px;
+}
+
