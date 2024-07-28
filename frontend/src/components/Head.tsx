@@ -25,8 +25,8 @@ function FirstComponent() {
                         <div className="menu-item">
                         Olá, Usuário <span className="arrow">&#9660;</span>
                             <div className="dropdown-content">
-                                <a className='option' href="/login">Entrar</a>
-                                <a className='option' href="/register">Cadastre-se</a>
+                                <Link to='/login' className='option'>Entrar</Link>
+                                <Link to='/register' className='option'>Cadastre-se</Link>
                             </div>
                         </div>
                     </div>
