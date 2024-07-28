@@ -14,7 +14,6 @@ interface BookCardProps {
 function BookCard(props: BookCardProps) {
   
   const [clicked, setClicked] = useState(false)
-  console.log(clicked)
 
   function permanentClick(){
     if (clicked == true) {
