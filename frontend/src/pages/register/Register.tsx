@@ -1,4 +1,5 @@
 import { ChangeEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import './register.css'
 import { api } from '../../services/api';
@@ -13,6 +14,8 @@ type RegisterFormData = {
 }
 
 function Register() {
+    const navigate = useNavigate()
+
     const [registerFormData, setRegisterFormData] = useState<RegisterFormData>({ 
         name: '',
         email: '',
@@ -22,7 +25,7 @@ function Register() {
         birthDate: ''
     });
 
-    function handleSubmit(event: ChangeEvent<HTMLFormElement>) {
+    async function handleSubmit(event: ChangeEvent<HTMLFormElement>) {
         event.preventDefault();
 
         const requestBody = {
@@ -34,7 +37,9 @@ function Register() {
             birthDate: registerFormData.birthDate
         }
 
-        api.post("/auth/register", requestBody)
+        await api.post("/auth/register", requestBody)
+
+        navigate("/login")
     }
 
     return (
