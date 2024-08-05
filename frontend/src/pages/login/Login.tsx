@@ -1,9 +1,18 @@
 import { ChangeEvent, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import './login.css'
 
 import { api } from '../../services/api';
+import { User } from '../../App';
 
-function Login() {
+interface Props {
+    onSuccessLogin: (responseUser: User) => void
+}
+
+function Login({ onSuccessLogin }: Props) {
+    const navigate = useNavigate()
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -15,11 +24,19 @@ function Login() {
         const requestBody = {
             email: email,
             password: password
-        }
+        }   
 
-        setIsLoading(true);
-        await api.post("/auth/login", requestBody);
-        setIsLoading(false);
+        try {
+            setIsLoading(true);
+            const response = await api.post("/auth/login", requestBody);
+
+            onSuccessLogin(response.data);
+            navigate("/")
+        } catch (error) {
+            alert("Erro ao fazer login")
+        } finally{
+            setIsLoading(false);
+        }
     }
 
     return (

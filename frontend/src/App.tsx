@@ -1,22 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css'
-import Head from './components/Head';
+
+import { Head } from './components/Head';
 import Login from './pages/login/Login';
 import Register from './pages/register/Register';
 import Cards from './pages/cards/Cards';
 import CartShop from './pages/cartShop/Cart';
-
+import { Profile } from './pages/profile/Profile';
+import { User } from './models/User';
 
 const App: React.FC = () => {
+  const [isSigned, setIsSigned] = useState(false)
+  const [user, setUser] = useState<User | null>(null)
+
+  function onLogin(responseUser: User){
+    setIsSigned(true)
+    setUser(responseUser)
+  }
+
+  function logout(){
+    setIsSigned(false)
+    setUser(null)
+  }
+
   return (
     <BrowserRouter> 
-      <Head />
+      <Head isSigned={isSigned} username={user?.name || ""} logout={logout} />
       <Routes>
-        <Route path="/login" Component={Login} />
+        <Route path="/login" Component={() => <Login onSuccessLogin={onLogin} />} />
         <Route path="/register" Component={Register} />
         <Route path="/" Component={Cards} />
         <Route path="/cartShop" Component={CartShop} />
+        <Route path="/profile" Component={() => <Profile user={user} />} />
       </Routes>
     </BrowserRouter>
   )
