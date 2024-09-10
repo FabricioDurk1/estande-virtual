@@ -19,3 +19,9 @@ CREATE TABLE IF NOT EXISTS users  (
    address_state VARCHAR(2),
    address_zip_code VARCHAR(8)
 );
+
+/** Creates the authors table */
+CREATE TABLE IF NOT EXISTS authors  (
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   name VARCHAR(255) NOT NULL
+);

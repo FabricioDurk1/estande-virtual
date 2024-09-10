@@ -12,7 +12,7 @@ public class JdbcConfig {
   public DataSource mysqlDataSource() {
     DriverManagerDataSource dataSource = new DriverManagerDataSource();
     dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-    dataSource.setUrl("jdbc:mysql://localhost:3306/estante_virtual");
+    dataSource.setUrl("jdbc:mysql://0.0.0.0:9000/estante_virtual");
     dataSource.setUsername("root");
     dataSource.setPassword("root");
 
