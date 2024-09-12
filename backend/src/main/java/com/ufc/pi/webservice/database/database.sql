@@ -31,3 +31,16 @@ CREATE TABLE IF NOT EXISTS authors  (
    id INT AUTO_INCREMENT PRIMARY KEY,
    name VARCHAR(255) NOT NULL
 );
+
+/** Creates the books table */
+CREATE TABLE IF NOT EXISTS books  (
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   title VARCHAR(255) NOT NULL,
+   description VARCHAR(255) NOT NULL,
+   price DECIMAL(10, 2) NOT NULL,
+   quantity INT NOT NULL,
+   publisher_id INT NOT NULL,
+   author_id INT NOT NULL,
+   FOREIGN KEY (publisher_id) REFERENCES publishers(id),
+   FOREIGN KEY (author_id) REFERENCES authors(id)
+);
