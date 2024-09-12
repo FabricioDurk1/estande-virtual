@@ -1,0 +1,23 @@
+.general-books{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-start;
+    margin-left: 90px;
+}
+
+.addLivro{
+    display: flex;
+    /* margin: auto; */
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.plusSignal{
+    font-size: 60px;
+    padding: 60px;
+    margin-left: 42px;
+    text-decoration: none;
+    color: #2B5A71;
+}

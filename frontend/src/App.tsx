@@ -1,24 +1,45 @@
-import { useState } from "react";
+import React, { useState } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0);
+import { Head } from './components/Head';
+import Login from './pages/login/Login';
+import Register from './pages/register/Register';
+import Cards from './pages/cards/Cards';
+import CartShop from './pages/cartShop/Cart';
+import { Profile } from './pages/profile/Profile';
+import { User } from './models/User';
+import { BookDescription } from './pages/bookDescription/BookDescription';
+import { BookRegister } from './pages/bookRegister/BookRegister';
+
+const App: React.FC = () => {
+  const [isSigned, setIsSigned] = useState(false)
+  const [user, setUser] = useState<User | null>(null)
+
+  function onLogin(responseUser: User){
+    setIsSigned(true)
+    setUser(responseUser)
+  }
+
+  function logout(){
+    setIsSigned(false)
+    setUser(null)
+  }
 
   return (
-    <>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  );
+    <BrowserRouter> 
+      <Head isSigned={isSigned} username={user?.name || ""} logout={logout} />
+      <Routes>
+        <Route path="/login" Component={() => <Login onSuccessLogin={onLogin} />} />
+        <Route path="/register" Component={Register} />
+        <Route path="/" Component={Cards} />
+        <Route path="/cartShop" Component={CartShop} />
+        <Route path="/bookDescription" Component={BookDescription} />
+        <Route path="/bookRegister" Component={BookRegister} />
+        <Route path="/profile" Component={() => <Profile user={user} />} />
+      </Routes>
+    </BrowserRouter>
+  )
 }
 
 export default App;
