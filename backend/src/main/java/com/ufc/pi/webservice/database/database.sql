@@ -19,3 +19,9 @@ CREATE TABLE IF NOT EXISTS users  (
    address_state VARCHAR(2),
    address_zip_code VARCHAR(8)
 );
+
+/** Creates the publishers table */
+CREATE TABLE IF NOT EXISTS publishers (
+   id INT PRIMARY KEY AUTO_INCREMENT,
+   name VARCHAR(255) NOT NULL
+);
