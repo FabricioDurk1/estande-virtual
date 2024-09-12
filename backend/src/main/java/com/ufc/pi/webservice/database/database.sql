@@ -25,3 +25,9 @@ CREATE TABLE IF NOT EXISTS publishers (
    id INT PRIMARY KEY AUTO_INCREMENT,
    name VARCHAR(255) NOT NULL
 );
+
+/** Creates the authors table */
+CREATE TABLE IF NOT EXISTS authors  (
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   name VARCHAR(255) NOT NULL
+);
