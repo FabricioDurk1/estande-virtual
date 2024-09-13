@@ -1,30 +1,49 @@
 import './bookDescription.css';
-import brasCubas from '../../assets/images/brasCubas.webp'
+
+
 export function BookDescription() {
     return (
-        <div>
-                <div className="container">
-                    <div className="book-details">
-                        <div className="book-image">
-                            <img src={brasCubas} alt="Capa do Livro"></img>
-                        </div>
-                        <div className="book-info">
-                            <h1 className="book-title">Título do Livro</h1>
-                            <h2 className="book-author">Autor do Livro</h2>
-                            <p className="book-description">
-                                Esta é uma descrição fictícia do livro. O livro trata de um tema interessante e cativante, abordando diversos aspectos importantes de forma clara e envolvente. É uma leitura recomendada para todos que se interessam por esse gênero.
-                            </p>
-                            <p className="book-price">R$ 59,90</p>
-                            <div className="rating">
-                                Avaliação:
-                                <span>&#9733;&#9733;&#9733;&#9733;&#9734;</span>
-                                (4.0 de 5.0)
-                            </div>
-                            <a href="#" className="add-to-cart">Adicionar ao Carrinho</a>
-                        </div>
-                    </div>
-                </div>
+        <div className="total2">
+        <div className="form-container">
+            <h1>Detalhes do Livro</h1>
+
+            <div className="details-group">
+                <label>Título:</label>
+                <p>Nome do Livro Exemplo</p>
+                <br />
+                <label>Descrição:</label>
+                <p>Descrição detalhada do livro que explica seu conteúdo e público-alvo.</p>    
+                <br />
+                <label>Autor:</label>
+                <p>Nome do Autor Exemplo</p>
+                <br />
+                <label>Editora:</label>
+                <p>Nome da Editora Exemplo</p>wad
+            </div>
+            <br />
+            <div className="period-group">
+                <label htmlFor="period">Selecione o período:</label>
+                <select id="period" name="period">
+                    <option value="dias">Dias</option>
+                    <option value="semanas">Semanas</option>
+                    <option value="meses">Meses</option>
+                </select>
+            </div>
+
+      
+            <button className="registerButton" type="button">Ver Vendas</button>
+
+           
+            <div className="sales-list">
+                <h2>Vendas no Período Selecionado</h2>
+                <ul id="vendas-lista">
+                    
+                </ul>
+                <h3 id="total-vendido">Total Vendido: 0 unidades</h3>
+            </div>
         </div>
+    </div>
+
     )
 }
 

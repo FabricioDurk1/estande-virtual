@@ -140,9 +140,6 @@ button.option {
   text-shadow: -4px 4px 4px rgba(0, 0, 0, 0.2);
 }
 
-#second-title{
-  margin-left: 6.7rem;
-}
 
 #icons{
   display: flex;
@@ -168,17 +165,31 @@ span{
   text-decoration: none;  
 }
 
-#first-title{
-  margin-left: 2.2rem;
+#cart:hover{
+  background-color: #ffffff00;
 }
 
+
 #logo{
-  margin-top: -7px;
+  display: flex;
+  flex-direction: column;
+  padding: 0px;
+  margin: 0px 0px 0px 70px;
 }
+
+#first-title{
+  margin: 0;
+}
+
+
 
 .shopButton{
   background: none;
   border: none;
+}
+
+.shopButton:hover{
+  background-color: #ffffff00;
 }
 
 
