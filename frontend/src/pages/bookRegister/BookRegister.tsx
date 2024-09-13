@@ -2,7 +2,7 @@ import './bookRegister.css'
 
 export function BookRegister() {
     return (
-        <div className='total'>
+        <div className='principalContainer'>
                 <div className="form-container">
                     <h1>Cadastro de Livro</h1>
                     <form>
