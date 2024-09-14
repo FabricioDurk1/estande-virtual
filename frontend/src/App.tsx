@@ -14,6 +14,8 @@ import { BookRegister } from './pages/bookRegister/BookRegister';
 import { AuthorRegister } from './pages/authorRegister/AuthorRegister';
 import { EditorRegister } from './pages/editorRegister/EditorRegister';
 import { Admnistrator } from './pages/admnistrator/admnistrator';
+import { EditorList } from './pages/editorList/EditorList';
+import { EditorUpdate } from './pages/editorUpdate/EditorUpdate';
 
 const App: React.FC = () => {
   const [isSigned, setIsSigned] = useState(false)
@@ -41,6 +43,8 @@ const App: React.FC = () => {
         <Route path="/bookRegister" Component={BookRegister} />
         <Route path="/authorRegister" Component={AuthorRegister} />
         <Route path="/editorRegister" Component={EditorRegister} />
+        <Route path="/editorUpdate/:publisherId" Component={EditorUpdate} />
+        <Route path="/editorList" Component={EditorList} />
         <Route path="/adm" Component={Admnistrator} />
         <Route path="/profile" Component={() => <Profile user={user} />} />
       </Routes>

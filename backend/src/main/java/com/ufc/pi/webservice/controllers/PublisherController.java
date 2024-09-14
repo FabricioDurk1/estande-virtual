@@ -34,6 +34,17 @@ public class PublisherController {
     public ResponseEntity<?> getAllPublishers() {
         return ResponseEntity.ok(publisherService.getAllPublishers());
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getPublisherById(@PathVariable("id") Long id) {
+        try {
+            var publisher = publisherService.getPublisherById(id);
+            return ResponseEntity.ok(publisher);    
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+        
+    }
     
     @PutMapping("/{id}")
     public ResponseEntity<?> updatePublisher(@PathVariable("id") Long id, @RequestBody UpdatePublisherDTO updatePublisherDTO) {

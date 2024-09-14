@@ -41,4 +41,14 @@ public class PublisherService {
         List<Publisher> publishers = publisherRepository.findAll();
         return publishers;
     }
+
+    public Publisher getPublisherById(Long id) throws Exception {
+        Optional<Publisher> publisherOptional = publisherRepository.findById(id);
+
+        if(publisherOptional.isEmpty()){
+            throw new Exception("Editora não encontrada");
+        }
+
+        return publisherOptional.get();
+    }
 }
