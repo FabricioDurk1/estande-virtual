@@ -14,37 +14,35 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-//Nome da classe
-public class AuthorService{
-   //TipoDaPropriedade NomeDaPropriedade
-  private final AuthorRespository authorRepository;
+// Verifique se não há outro elemento chamado AuthorService aqui
+public class AuthorService {
+    private final AuthorRespository authorRepository;
 
-
-  ///Public tipoRetornoDoMetodo (NomeDoMetodo NomeParametro1)             Tipo e valor Tipo e nome
-  public void createAuthor(CreateAuthorDTO createAuthorDTO){
-    var author = new Author();
-    author.setName(createAuthorDTO.name());
-
-    authorRepository.create(author);
-  }
-
-  // Método para atualizar um autor
-  public void  updateAuthor(Long id, UpdateAuthorDTO updateAuthorDTO) throws Exception{
-
-    Optional<Author> authorOptional = authorRepository.findById(id);
-
-    if(authorOptional.isEmpty()){
-      throw new Exception("Não existe um autor com o id" + id.toString());
+    public void createAuthor(CreateAuthorDTO createAuthorDTO) {
+        var author = new Author();
+        author.setName(createAuthorDTO.name());
+        authorRepository.create(author);
     }
 
-    Author existingAuthor = authorOptional.get();
-    existingAuthor.setName(updateAuthorDTO.name());
+    public void updateAuthor(Long id, UpdateAuthorDTO updateAuthorDTO) throws Exception {
+        Optional<Author> authorOptional = authorRepository.findById(id);
 
-    authorRepository.update(existingAuthor);
-  }
+        if (authorOptional.isEmpty()) {
+            throw new Exception("Não existe um autor com o id " + id.toString());
+        }
 
-  public List<Author> getAllAuthors() {
-    return authorRepository.findAll();  // Chama o método findAll no repositório
-  }
+        Author existingAuthor = authorOptional.get();
+        existingAuthor.setName(updateAuthorDTO.name());
+        authorRepository.update(existingAuthor);
+    }
 
+    public List<Author> getAllAuthors() {
+        return authorRepository.findAll();
+    }
+
+    
+    public Author findAuthorById(Long id) throws Exception {
+        return authorRepository.findById(id)
+            .orElseThrow(() -> new Exception("Autor não encontrado com o ID: " + id));
+    }
 }

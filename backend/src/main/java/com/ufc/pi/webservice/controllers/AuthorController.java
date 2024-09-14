@@ -51,5 +51,15 @@ public class AuthorController {
         List<Author> authors = authorService.getAllAuthors();
         return ResponseEntity.ok(authors);
     }
+
+        @GetMapping("/{id}")
+    public ResponseEntity<?> getAuthorById(@PathVariable Long id) {
+        try {
+            Author author = authorService.findAuthorById(id);
+            return ResponseEntity.ok(author);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Erro: " + e.getMessage());
+        }
+    }
 }
 
