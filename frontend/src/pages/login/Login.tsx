@@ -3,15 +3,11 @@ import { useNavigate } from 'react-router-dom';
 
 import './login.css'
 
-import { api } from '../../services/api';
-import { User } from '../../App';
+import { useAuth } from '../../hooks/useAuth';
 
-interface Props {
-    onSuccessLogin: (responseUser: User) => void
-}
-
-function Login({ onSuccessLogin }: Props) {
+function Login() {
     const navigate = useNavigate()
+    const { login } = useAuth();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -21,16 +17,9 @@ function Login({ onSuccessLogin }: Props) {
     {   
         event.preventDefault();
 
-        const requestBody = {
-            email: email,
-            password: password
-        }   
-
         try {
             setIsLoading(true);
-            const response = await api.post("/auth/login", requestBody);
-
-            onSuccessLogin(response.data);
+            await login(email, password);
             navigate("/")
         } catch (error) {
             alert("Erro ao fazer login")

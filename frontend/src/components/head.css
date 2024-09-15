@@ -131,6 +131,21 @@ button.option {
   filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
 }
 
+.shopButton .badge{
+  position: absolute;
+  height: 1.6rem;
+  width: 1.6rem;
+  border-radius: 100%;
+  background-color: red;
+  top: 1.8rem;
+  right: 1.8rem;
+  z-index: 2;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center
+}
+
 #first-title, #second-title{
   align-self: center;
   color: #FFF;
