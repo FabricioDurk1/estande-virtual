@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 import com.ufc.pi.webservice.database.BookMapper;
 import com.ufc.pi.webservice.models.Book;
-import com.ufc.pi.webservice.utils.ParamReplacer;
 
 import lombok.RequiredArgsConstructor;
 
