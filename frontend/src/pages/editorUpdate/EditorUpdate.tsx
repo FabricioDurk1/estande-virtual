@@ -24,7 +24,6 @@ export function EditorUpdate() {
             setName(loadedPublisher.name);
         } catch (error) {
             alert("Erro ao buscar editora");
-            navigate("/editorList");
         } finally {
             setIsLoading(false);
         }

@@ -1,86 +1,47 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
 
-
 * {
     padding: 0;
     margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-
-.register-container {
-    color: #fff;
+.profile-page {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    padding: 2rem 4.3em;
 }
 
-
-.register-form {
-    width: 370px;
-    background-color: #2B5A71;
-    border-radius: 10px;
-    margin-top: 20px;
-    padding: 20px;
-    box-shadow: 4px 4px 5px rgba(0, 0, 0, 0.2);
+.profile-page aside {
+    width: 20%;
+    margin-right: 2rem;
 }
 
-.form{
-    margin-top: 46px;
+.profile-page ul {
+    list-style: none;
 }
 
-.register-form h2 {
+.profile-page ul li {
     display: flex;
-    justify-content: center;
-    font-size: 31px;
-    font-weight: bold;
-    font-family: Arial, Helvetica, sans-serif;
-    margin-bottom: 20px;
-    text-shadow: -4px 4px 4px rgba(0, 0, 0, 0.2);
-}
-
-.form-group {
-    margin-bottom: 20px;
-    align-items: center;
-    align-items: center;
-}
-
-.form-group label {
-    display: block;
-    font-weight: bold;
-    text-shadow: -4px 4px 4px rgba(0, 0, 0, 0.2);
-    margin-left: 18px;
-    font-family: Arial, Helvetica, sans-serif;
-    margin-bottom: 5px;
-}
-
-
-.form-group input {
-    margin-bottom: 20px;
-    width: 93%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: -4px 4px 4px rgba(0, 0, 0, 0.2);
-}
-
-.register-form button {
-    width: 30%;
-    padding: 10px;
-    font-weight: bold;
-    font-size: 14px;
-    font-family: Arial, Helvetica, sans-serif;
-    margin-left: 33%;
-    background-color: #ffffff;
-    color: #2B5A71;
-    border: none;
-    border-radius: 5px;
+    margin-bottom: 10px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin-top: 30px;
-    box-shadow: 2px 0px 18px rgba(0, 0, 0, 0.2)
+    font-weight: 600;
+    border-radius: 0.3rem;
 }
 
+.profile-page ul li > a {
+    color: #a3a3a3;
+    display: flex;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    padding: 0.6rem 1rem;
+}
 
-.register-form button:hover {
-    background-color: #4a677467;
-    color: #FFF;
+.profile-page ul li.selected {
+    background-color: #2B5A71;
+    transition: 0.3s;
+}
+
+.profile-page ul li.selected > a {
+    color: #fff;
 }

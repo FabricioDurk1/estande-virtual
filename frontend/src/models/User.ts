@@ -1,3 +1,5 @@
+import { Address } from "./Address";
+
 export type User = {
   name: string;
   email: string;
@@ -5,4 +7,5 @@ export type User = {
   cpf: string;
   phone: string;
   birthDate: string;
+  address: Address | null;
 }

@@ -1,15 +1,15 @@
-*{
+* {
     margin: 0;
     padding: 0;
 }
 
-.motherDiv{
+.motherDiv {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
 }
 
-.totalCart{
+.totalCart {
     font-weight: 300;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 1.5rem;
@@ -18,7 +18,7 @@
     margin-top: 10px;
 }
 
-.selectionCart{
+.selectionCart {
     font-weight: 300;
     font-family: "Arial", Helvetica, sans-serif;
     font-size: 2rem;
@@ -27,30 +27,93 @@
     margin-top: 10px;
 }
 
-hr{
+hr {
     width: 95%;
     padding: auto;
     margin: auto;
 }
 
-.cartSelection{
+.cartSelection {
     width: 694px;
-    height: 528px;
-    background-color: #ffffff; 
-    margin-top: 15px;
-    border-radius: 10px;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-}
-
-.cartTotal{
-    width: 287px;
-    height: 271px;
     background-color: #ffffff;
     margin-top: 15px;
     border-radius: 10px;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
+.cartTotal {
+    width: 287px;
+    background-color: #ffffff;
+    margin-top: 15px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
 
+.emptyCart p {
+    font-weight: 300;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1rem;
+    color: #9b9b9b;
+    margin-left: 10px;
+    margin-top: 10px;
+    text-align: center;
+}
 
+.cart-total {
+    margin: 0;
+    margin-right: 0;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    color: #2B5A71;
+    width: 100%;
+    font-weight: bold;
+    margin-bottom: 2rem;
+}
 
+.cart-total span {
+    margin: 0;
+    font-weight: 400;
+}
+
+.payment {
+    display: flex;
+    flex-direction: column;
+}
+
+.payment-card {
+    display: flex;
+    flex-direction: column;
+    color: #2B5A71;
+    width: 100%;
+    font-weight: bold;
+    margin-bottom: 2rem;
+}
+
+.payment-card label {
+    margin: 0;
+    font-size: 1rem;
+    margin-bottom: 0.8rem;
+    margin-right: 0;
+}
+
+.payment-card select {
+    margin-bottom: 20px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 2.4rem;
+    padding-left: 1rem;
+    font-weight: bold;
+    color: #2B5A71;
+}
+
+.payment-card button {
+    background-color: #005f96;
+    color: #FFF;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 1rem;
+    cursor: pointer;
+    margin: 0;
+}
