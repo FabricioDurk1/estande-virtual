@@ -1,68 +1,53 @@
-import './cards.css'
-import imageLivro from '../../assets/images/bikeguy.svg'
-// import imageLivro2 from '../../assets/images/brasCubas.webp'
-import BookCard from '../../components/BookCard';
-import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
-const books = [
+import BookCard from "../../components/BookCard";
+import { Book } from "../../models";
+
+import "./cards.css";
+
+const books: Book[] = [
   {
-    price: 39.90,
-    coverImage: imageLivro
+    id: 1,
+    price: 10,
+    description: "",
+    title: "Livro 1"
   },
   {
-    price: 39.90,
-    coverImage: imageLivro
+    id: 2,
+    price: 20,
+    description: "",
+    title: "Livro 2"
   },
   {
-    price: 49.90,
-    coverImage: imageLivro
+    id: 3,
+    price: 30,
+    description: "",
+    title: "Livro 3"
   },
   {
-    price: 60.90,
-    coverImage: imageLivro
-  },
-  {
-    price: 39.90,
-    coverImage: imageLivro
-  },
-  {
-    price: 39.90,
-    coverImage: imageLivro
-  },
-  {
-    price: 49.90,
-    coverImage: imageLivro
-  },
-  {
-    price: 60.90,
-    coverImage: imageLivro
-  },
-  {
-    price: 39.90,
-    coverImage: imageLivro
+    id: 4,
+    price: 40,
+    description: "",
+    title: "Livro 4"
   }
-] 
+];
 
 function Cards() {
+  const navigate = useNavigate();
 
   return (
-      <div className='cards'>
-        <div className='general-books'>
-        {
-          books.map((book) => {
-            return(
-              <BookCard price={book.price} coverImage={book.coverImage}/>
-            )
-          })
-        }
-        
-        <div className='addLivro'>
-        <Link to={'./bookRegister'}>
-         <span className='plusSignal'>&#43;</span>
-         </Link>  
-        </div>
-        </div>
+    <div className="cards">
+      <div className="book-list-header">
+        <h1 className="book-list-title">Lista de livros</h1>
+        <button className="book-list-button" onClick={() => navigate("/bookRegister")}>Cadastrar livro</button>
       </div>
+
+      <div className="general-books">
+        {books.map((book) => {
+          return <BookCard book={book} />;
+        })}
+      </div>
+    </div>
   );
 }
 

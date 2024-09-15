@@ -1,0 +1,51 @@
+.credit-card-container {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #efefef;
+  border-radius: 6px;
+  margin-bottom: 1.4rem;
+}
+
+.credit-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.3rem;
+}
+
+.credit-card-header button{
+  background-color: #005f96;
+  color: #FFF;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 1rem;
+  cursor: pointer;
+  margin: 0;
+}
+
+.credit-card-container h2{
+  font-size: 1.3rem;
+  color: #333333;
+}
+
+.credit-card-container span {
+  margin: 0;
+  font-weight: 700;
+}
+
+.credit-card-container p{
+  font-size: 1rem;
+  margin-left: 0px;
+  color: #7A7A7A;
+  font-weight: 400;
+}
+
+.credit-card-container .credit-card-info-row{
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.4rem;
+}
+
+.credit-card-info-row p {
+  margin-right: 1.4rem;
+}

@@ -1,0 +1,32 @@
+.my-cards-page {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.my-cards-page-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.4rem;
+  box-sizing: border-box;
+}
+
+.my-cards-page-header button{
+  background-color: #2B5A71;
+  color: #FFF;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+  margin: 0;
+}
+
+.my-cards-page h1{
+  margin: 0;
+  color: #2B5A71;
+  text-align: start;
+}
+
+.credit-cards-container{
+  margin-right: 1.6rem;
+}

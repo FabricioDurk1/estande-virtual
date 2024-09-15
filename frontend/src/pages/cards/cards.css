@@ -1,3 +1,30 @@
+.book-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.6rem;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.book-list-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #2B5A71;
+    margin: 0;
+}
+
+.book-list-button {
+    background-color: #2B5A71;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
 .general-books{
     display: flex;
     flex-wrap: wrap;
@@ -12,6 +39,7 @@
     align-content: center;
     justify-content: center;
     align-items: center;
+
 }
 
 .plusSignal{
