@@ -37,12 +37,11 @@ public class BookMapper implements RowMapper<Book> {
     Publisher publisher = new Publisher();
     publisher.setId(publisherId);
     publisher.setName(publisherName);
+    book.setPublisher(publisher);
 
     Author author = new Author();
     author.setId(authorId);
     author.setName(authorName);
-
-    book.setPublisher(publisher);
     book.setAuthor(author);
     
     return book;
