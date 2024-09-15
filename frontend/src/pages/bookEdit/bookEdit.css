@@ -1,0 +1,105 @@
+ /* Estilos globais */
+ .main-container {
+  font-family: Arial, sans-serif;
+  background-color: #ffffff;
+  color: #FFFF;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 85vh;
+}
+
+/* Container do conteúdo */
+.form-container {
+  background-color: #2B5A71;
+  padding: 20px;
+  border-radius: 8px;
+  width: 500px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: #2B5A71;
+}
+
+/* Estilo do título */
+h1 {
+  text-align: center;
+  color: #FFFF;
+  margin-bottom: 20px;
+}
+
+/* Grupo de detalhes do livro */
+.details-group {
+  margin-bottom: 15px;
+  color: #FFFF;
+}
+
+.details-group label {
+  display: block;
+  font-weight: bold;
+}
+
+.details-group p {
+  margin: 5px 0;
+}
+
+/* Grupo de seleção de período */
+.period-group {
+  margin-bottom: 15px;
+  color: #FFFF;
+}
+
+.period-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #FFFF;
+}
+
+.period-group select {
+  width: calc(100% - 10px);
+  padding: 8px 5px;
+  border: 1px solid #2B5A71;
+  border-radius: 4px;
+  font-size: 16px;
+  color: #2B5A71;
+}
+
+/* Estilos do botão */
+.registerButton {
+  width: 30%;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #ffffff;
+  color: #2B5A71;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 30px;
+  margin-left: 36%;
+  box-shadow: 2px 0px 18px rgba(0, 0, 0, 0.2);
+}
+
+.registerButton:hover {
+  background-color: #4a677467;
+  color: #FFF;
+}
+
+/* Estilo da lista de vendas */
+.sales-list {
+  margin-top: 20px;
+}
+
+.sales-list ul {
+  list-style: none;
+  padding: 0;
+  color: #FFFF;
+}
+
+.sales-list ul li {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #FFF;
+  padding-bottom: 10px;
+}
