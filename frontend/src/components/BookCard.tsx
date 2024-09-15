@@ -27,7 +27,7 @@ function BookCard(props: BookCardProps) {
   return (
     <div className='individual-cards'>
       <div className='card-book'>
-        <img className='book-cover' src={props.coverImage} alt="bikeguy" />
+      <Link to={'./bookDescription'}><img className='book-cover' src={props.coverImage} alt="bikeguy" /> </Link>
         <div className='label-price'>
           <p>R$ {props.price}</p><div className='vertical-line'></div>
           <Link to="/">
