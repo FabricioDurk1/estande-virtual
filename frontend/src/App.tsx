@@ -4,7 +4,6 @@ import "./App.css";
 
 import { AuthorList } from './pages/AuthorList/AuthorList';
 import { BookList } from './pages/bookList/BookList';
-import { BookEdit } from './pages/bookEdit/BookEdit';
 import { Head } from "./components/Head";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
@@ -23,6 +22,8 @@ import { AuthContextProvider } from "./contexts/AuthContext";
 import { CreditCardRegister } from "./pages/creditCardRegister/CreditCardRegister";
 import { CreditCardUpdate } from "./pages/creditCardUpdate/CreditCardUpdate";
 import { CartContextProvider } from "./contexts/CartContext";
+import { BookUpdate } from "./pages/bookUpdate/BookUpdate";
+import { AuthorUpdate } from "./pages/authorUpdate/AuthorUpdate";
 
 const App: React.FC = () => {
   return (
@@ -53,8 +54,10 @@ const App: React.FC = () => {
             </Route>
 
             <Route path="/authorList" Component={AuthorList} />
+            <Route path="/authorUpdate" Component={AuthorUpdate} />
             <Route path="/bookList" Component={BookList} />
-            <Route path="/bookEdit" Component={BookEdit} />
+            <Route path="/bookUpdate" Component={BookUpdate} />
+
           </Routes>
         </BrowserRouter>
     </AuthContextProvider>

@@ -34,34 +34,11 @@ h1 {
   color: #FFFF;
 }
 
+
 .details-group label {
   display: block;
   font-weight: bold;
-}
-
-.details-group p {
-  margin: 5px 0;
-}
-
-/* Grupo de seleção de período */
-.period-group {
-  margin-bottom: 15px;
-  color: #FFFF;
-}
-
-.period-group label {
-  display: block;
-  margin-bottom: 5px;
-  color: #FFFF;
-}
-
-.period-group select {
-  width: calc(100% - 10px);
-  padding: 8px 5px;
-  border: 1px solid #2B5A71;
-  border-radius: 4px;
-  font-size: 16px;
-  color: #2B5A71;
+  padding: 3%;
 }
 
 /* Estilos do botão */
@@ -87,19 +64,18 @@ h1 {
   color: #FFF;
 }
 
-/* Estilo da lista de vendas */
-.sales-list {
-  margin-top: 20px;
+.all-inputs{
+  width: 93%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: -4px 4px 4px rgba(0, 0, 0, 0.2);
 }
 
-.sales-list ul {
-  list-style: none;
-  padding: 0;
-  color: #FFFF;
-}
-
-.sales-list ul li {
-  margin-bottom: 10px;
-  border-bottom: 1px solid #FFF;
-  padding-bottom: 10px;
+#descricao{
+  width: 88%;
+  padding: 5%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: -4px 4px 4px rgba(0, 0, 0, 0.2);
 }

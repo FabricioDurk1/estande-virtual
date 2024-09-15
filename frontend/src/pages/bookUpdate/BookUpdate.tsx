@@ -1,7 +1,7 @@
 import './bookEdit.css'
 
 
-export function BookEdit() {
+export function BookUpdate() {
     return(
         <div className="main-container">
         <div className="form-container">
@@ -9,16 +9,16 @@ export function BookEdit() {
 
             <div className="details-group">
                 <label>Título:</label>
-                <p>Nome do Livro Exemplo</p>
+                <input className='all-inputs' type='text'></input>
                 <br />
                 <label>Descrição:</label>
-                <p>Descrição detalhada do livro que explica seu conteúdo e público-alvo.</p>    
+                <textarea id="descricao" name="descricao" rows={4} cols={50}></textarea> 
                 <br />
                 <label>Autor:</label>
-                <p>Nome do Autor Exemplo</p>
+                <input className='all-inputs' type='text'></input>
                 <br />
                 <label>Editora:</label>
-                <input>Nome da edita exemplo:</input>
+                <input className='all-inputs' type='text'></input>
             </div>
             <br />
     
