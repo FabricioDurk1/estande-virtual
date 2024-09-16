@@ -1,5 +1,6 @@
 package com.ufc.pi.webservice.repositories;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -8,9 +9,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Repository;
 
+import com.ufc.pi.webservice.data.structures.DoublyLinkedList;
 import com.ufc.pi.webservice.database.AuthorMapper;
 import com.ufc.pi.webservice.database.AuthorTable;
 import com.ufc.pi.webservice.models.Author;
+import com.ufc.pi.webservice.models.CreditCard;
 import com.ufc.pi.webservice.utils.ParamReplacer;
 
 import lombok.RequiredArgsConstructor;
@@ -55,35 +58,47 @@ public class AuthorRepositoryimpl implements AuthorRespository {
     }
 
     @Override
-    public Optional<Author> findById(Long id) {
-        final String PARAMETERIZED_COMMAND = "SELECT * FROM :tableName WHERE :idColumn = ?";
+    public DoublyLinkedList<Author> findById(Long id) {
+        String sql = "SELECT * FROM authors WHERE id = ?";
 
-        HashMap<String, String> tableStructureParams = new HashMap<>();
-        tableStructureParams.put("tableName", AuthorTable.TABLE_NAME);
-        tableStructureParams.put("idColumn", AuthorTable.ID_COLUMN);
+        PreparedStatementSetter queryDynamicParamsSetter = ps -> {  
+            ps.setLong(1, id);
+        };
 
-        final String tableStructuredCommand = ParamReplacer.fillParams(PARAMETERIZED_COMMAND, tableStructureParams);
+        DoublyLinkedList<Author> authors = new DoublyLinkedList<>();
 
-        PreparedStatementSetter queryDynamicParamsSetter = ps -> ps.setLong(1, id);
+        jdbcTemplate.query(sql, queryDynamicParamsSetter, (rs, rowNum) -> {
+            Author author = mapRowToAuthor(rs, rowNum);
+            authors.addNode(author);
+            return author;
+        });
 
-        var result = jdbcTemplate.query(tableStructuredCommand, queryDynamicParamsSetter, this.authorMapper);
-
-        if (result.isEmpty()) {
-            return Optional.empty();
-        }
-        return Optional.of(result.get(0));
+        return authors;
     }
 
     @Override
-    public List<Author> findAll() {
-        final String PARAMETERIZED_COMMAND = "SELECT * FROM :tableName";
+    public DoublyLinkedList<Author> findAll() {
+        final String PARAMETERIZED_COMMAND = "SELECT * FROM authors";
 
-        HashMap<String, String> tableStructureParams = new HashMap<>();
-        tableStructureParams.put("tableName", AuthorTable.TABLE_NAME);
 
-        final String tableStructuredCommand = ParamReplacer.fillParams(PARAMETERIZED_COMMAND, tableStructureParams);
+        DoublyLinkedList<Author> authors = new DoublyLinkedList<>();
 
-        return jdbcTemplate.query(tableStructuredCommand, this.authorMapper);
+        jdbcTemplate.query(PARAMETERIZED_COMMAND, (rs, rowNum) -> {
+            Author author = mapRowToAuthor(rs, rowNum);
+            authors.addNode(author);
+            return author;
+        });
+
+        return authors;
+    }
+
+    public Author mapRowToAuthor(java.sql.ResultSet rs, int rowNum) throws java.sql.SQLException {
+        Author entity = new Author();
+
+        entity.setId(rs.getLong("id"));
+        entity.setName(rs.getString("name"));
+        
+        return entity;
     }
 }
 

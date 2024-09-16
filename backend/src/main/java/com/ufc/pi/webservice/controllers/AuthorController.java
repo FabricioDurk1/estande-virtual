@@ -3,13 +3,16 @@ package com.ufc.pi.webservice.controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ufc.pi.webservice.data.structures.DoublyLinkedList;
 import com.ufc.pi.webservice.dtos.input.CreateAuthorDTO;
 import com.ufc.pi.webservice.dtos.input.UpdateAuthorDTO;
 import com.ufc.pi.webservice.models.Author;
+import com.ufc.pi.webservice.models.CreditCard;
 import com.ufc.pi.webservice.services.AuthorService;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
@@ -48,15 +51,24 @@ public class AuthorController {
 
     @GetMapping
     public ResponseEntity<List<Author>> getAllAuthors() {
-        List<Author> authors = authorService.getAllAuthors();
-        return ResponseEntity.ok(authors);
+        List<Author> authorsResponse = new ArrayList<>();
+
+    DoublyLinkedList<Author> authors = authorService.getAllAuthors();
+    DoublyLinkedList<Author>.Node current = authors.getHead();
+
+    while (current != null) {
+        authorsResponse.add(current.data);
+        current = current.next;
+    }
+
+    return ResponseEntity.ok(authorsResponse);
     }
 
         @GetMapping("/{id}")
     public ResponseEntity<?> getAuthorById(@PathVariable Long id) {
         try {
-            Author author = authorService.findAuthorById(id);
-            return ResponseEntity.ok(author);
+            DoublyLinkedList<Author> author = authorService.findAuthorById(id);
+            return ResponseEntity.ok(author.getHead().data);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Erro: " + e.getMessage());
         }
