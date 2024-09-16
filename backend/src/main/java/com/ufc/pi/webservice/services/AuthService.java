@@ -2,7 +2,9 @@ package com.ufc.pi.webservice.services;
 
 import com.ufc.pi.webservice.dtos.input.LoginInputDTO;
 import com.ufc.pi.webservice.dtos.input.RegisterInputDTO;
+import com.ufc.pi.webservice.dtos.output.AddressOutputDTO;
 import com.ufc.pi.webservice.dtos.output.LoginOutputDTO;
+import com.ufc.pi.webservice.dtos.output.UserOutputDTO;
 import com.ufc.pi.webservice.enums.UserRole;
 import com.ufc.pi.webservice.repositories.UserRepository;
 import com.ufc.pi.webservice.services.security.JwtService;
@@ -62,13 +64,20 @@ public class AuthService {
       input.password()
     ));
 
-    LoginOutputDTO output = LoginOutputDTO.builder()
+    UserOutputDTO userOutput = UserOutputDTO.builder()
       .name(user.getName())
       .email(user.getEmail())
       .role(user.getRole().name())
       .cpf(user.getCpf())
       .phone(user.getPhoneNumber())
       .birthDate(user.getBirthDate().toString())
+      .build();
+
+    AddressOutputDTO addressOutputDTO = null;
+
+    LoginOutputDTO output = LoginOutputDTO.builder()
+      .user(userOutput)
+      .address(addressOutputDTO)
       .accessToken(jwtService.generateToken(user))
       .build();
 
