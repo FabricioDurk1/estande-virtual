@@ -5,9 +5,11 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.ufc.pi.webservice.data.structures.DoublyLinkedList;
 import com.ufc.pi.webservice.dtos.input.CreateAuthorDTO;
 import com.ufc.pi.webservice.dtos.input.UpdateAuthorDTO;
 import com.ufc.pi.webservice.models.Author;
+import com.ufc.pi.webservice.models.CreditCard;
 import com.ufc.pi.webservice.repositories.AuthorRespository;
 
 import lombok.RequiredArgsConstructor;
@@ -25,24 +27,28 @@ public class AuthorService {
     }
 
     public void updateAuthor(Long id, UpdateAuthorDTO updateAuthorDTO) throws Exception {
-        Optional<Author> authorOptional = authorRepository.findById(id);
+        DoublyLinkedList<Author> authorOptional = authorRepository.findById(id);
 
-        if (authorOptional.isEmpty()) {
+        if (authorOptional.getHead()==null) {
             throw new Exception("Não existe um autor com o id " + id.toString());
         }
 
-        Author existingAuthor = authorOptional.get();
+        Author existingAuthor = authorOptional.getHead().data;
         existingAuthor.setName(updateAuthorDTO.name());
         authorRepository.update(existingAuthor);
     }
 
-    public List<Author> getAllAuthors() {
+    public DoublyLinkedList<Author> getAllAuthors() {
         return authorRepository.findAll();
     }
 
     
-    public Author findAuthorById(Long id) throws Exception {
-        return authorRepository.findById(id)
-            .orElseThrow(() -> new Exception("Autor não encontrado com o ID: " + id));
+    public DoublyLinkedList<Author> findAuthorById(Long id) throws Exception {
+        DoublyLinkedList<Author> authorOptional = authorRepository.findById(id);
+
+        if (authorOptional.getHead()==null) {
+            throw new Exception("Não existe um autor com o id " + id.toString());
+        }
+        return authorOptional;
     }
 }
