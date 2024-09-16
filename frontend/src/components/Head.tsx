@@ -72,11 +72,18 @@ export function Head() {
                     Cadastre-se
                   </Link>
                 ) : null}
-                {isSigned ? (
+                {isSigned && user?.role === "CUSTOMER" ? (
                   <Link to="/profile" className="option">
                     Meu Perfil
                   </Link>
                 ) : null}
+
+                {isSigned && user?.role === "ADMIN" ? (
+                  <Link to="/adm" className="option">
+                    Área do adm.
+                  </Link>
+                ) : null}
+                
                 {isSigned ? (
                   <button onClick={handleLogout} className="option">
                     Sair

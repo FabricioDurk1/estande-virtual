@@ -26,6 +26,7 @@ import { AdminRoute } from "./components/AdminRoute";
 import { CustomerRoute } from "./components/CustomerRoute";
 import { Head } from "./components/Head";
 import { BookUpdate } from "./pages/bookUpdate/BookUpdate";
+import { AuthorUpdate } from "./pages/authorUpdate/AuthorUpdate";
 
 export function Routes() {
   return (
@@ -49,14 +50,15 @@ export function Routes() {
         />
 
         <Route path="/bookRegister" element={<AdminRoute><BookRegister /></AdminRoute>} />
-        <Route path="/authorRegister" element={<AdminRoute><AuthorRegister/></AdminRoute>} />
         <Route path="/editorRegister" element={<AdminRoute><EditorRegister/></AdminRoute>} />
         <Route path="/editorUpdate/:publisherId" element={<AdminRoute><EditorUpdate/></AdminRoute>} />
         <Route path="/editorList" element={<AdminRoute><EditorList/></AdminRoute>} />
 
+        <Route path="/authorRegister" element={<AdminRoute><AuthorRegister/></AdminRoute>} />
+        <Route path="/authorUpdate/:authorId" element={<AdminRoute><AuthorUpdate/></AdminRoute>} />
         <Route path="/authorList" element={<AdminRoute><AuthorList/></AdminRoute>} />
         <Route path="/bookList" element={<AdminRoute><BookList/></AdminRoute>} />
-        <Route path="/bookUpdate" element={<AdminRoute><BookUpdate/></AdminRoute>} />
+        <Route path="/bookUpdate/:bookId" element={<AdminRoute><BookUpdate/></AdminRoute>} />
 
         <Route path="/profile" element={<CustomerRoute><Profile/></CustomerRoute>}>
           <Route path="/profile" index element={<CustomerRoute><MyAccount/></CustomerRoute>} />

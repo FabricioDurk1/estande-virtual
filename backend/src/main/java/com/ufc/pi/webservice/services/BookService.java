@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ufc.pi.webservice.data.structures.DoublyLinkedList;
 import com.ufc.pi.webservice.dtos.input.CreateBookDTO;
 import com.ufc.pi.webservice.models.Author;
 import com.ufc.pi.webservice.models.Book;
@@ -36,12 +37,18 @@ public class BookService {
   // Método para criar um novo livro
   public void createBook(CreateBookDTO createBookDTO) throws Exception {
     // Buscar o autor
-    Author author = authorRepository.findById(createBookDTO.getAuthorId())
-        .orElseThrow(() -> new Exception("Autor não encontrado com o ID: " + createBookDTO.getAuthorId()));
+    DoublyLinkedList<Author> author = authorRepository.findById(createBookDTO.getAuthorId());
+
+    if (author.getHead() == null) {
+      throw new Exception("Autor não encontrado com o ID: " + createBookDTO.getAuthorId());
+    }
 
     // Buscar a editora
-    Publisher publisher = publisherRepository.findById(createBookDTO.getPublisherId())
-        .orElseThrow(() -> new Exception("Editora não encontrada com o ID: " + createBookDTO.getPublisherId()));
+    Optional<Publisher> publisher = publisherRepository.findById(createBookDTO.getPublisherId());
+
+    if (publisher.isEmpty()) {
+      throw new Exception("Editora não encontrada com o ID: " + createBookDTO.getPublisherId());
+    }
 
     // Criar o livro
     Book book = new Book();
@@ -49,8 +56,8 @@ public class BookService {
     book.setDescription(createBookDTO.getDescription());
     book.setPrice(createBookDTO.getPrice());
     book.setQuantity(createBookDTO.getQuantity());
-    book.setAuthor(author);
-    book.setPublisher(publisher);
+    book.setAuthor(author.getHead().data);
+    book.setPublisher(publisher.get());
 
     // Salvar o livro
     bookRepository.create(book);
@@ -67,8 +74,11 @@ public class BookService {
         Book book = bookOptional.get();
 
         // Buscar o autor e editora
-        Author author = authorRepository.findById(updateBookDTO.getAuthorId())
-            .orElseThrow(() -> new Exception("Autor não encontrado com o ID: " + updateBookDTO.getAuthorId()));
+        DoublyLinkedList<Author> author = authorRepository.findById(updateBookDTO.getAuthorId());
+
+        if (author.getHead() == null) {
+          throw new Exception("Autor não encontrado com o ID: " + updateBookDTO.getAuthorId());
+        }
 
         Publisher publisher = publisherRepository.findById(updateBookDTO.getPublisherId())
             .orElseThrow(() -> new Exception("Editora não encontrada com o ID: " + updateBookDTO.getPublisherId()));
@@ -78,7 +88,7 @@ public class BookService {
         book.setDescription(updateBookDTO.getDescription());
         book.setPrice(updateBookDTO.getPrice());
         book.setQuantity(updateBookDTO.getQuantity());
-        book.setAuthor(author);
+        book.setAuthor(author.getHead().data);
         book.setPublisher(publisher);
 
         // Atualizar no banco de dados
