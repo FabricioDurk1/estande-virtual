@@ -11,6 +11,38 @@
     height: 85vh;
   }
   
+  .input-group {
+    margin-bottom: 20px;
+  }
+  
+  .publisher, .author {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #FFF;
+  }
+  
+  select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ffffff;
+    background-color: white;
+    color: #2B5A71;
+    font-size: 16px;
+    box-shadow: 2px 0px 18px rgba(0, 0, 0, 0.2)
+  }
+  
+  select:focus {
+    outline: none;
+    border-color: #ffffff;
+  }
+  
+  option {
+    color: #2B5A71;
+  }
+  
+
   /* Container do formulário */
   .form-container {
     background-color: #2B5A71;
@@ -31,6 +63,16 @@
   /* Grupo de formulário */
   .form-group {
     margin-bottom: 15px;
+  }
+
+  .authors-label{
+    color: #FFF;
+    margin: 10px;
+  }
+
+  .publisher-label{
+    color: #FFF;
+    margin: 10px;
   }
   
   .form-group label {

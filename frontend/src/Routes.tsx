@@ -7,7 +7,6 @@ import "./App.css";
 
 import { AuthorList } from "./pages/AuthorList/AuthorList";
 import { BookList } from "./pages/bookList/BookList";
-import { BookEdit } from "./pages/bookEdit/BookEdit";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import Cards from "./pages/cards/Cards";
@@ -26,6 +25,7 @@ import { CreditCardUpdate } from "./pages/creditCardUpdate/CreditCardUpdate";
 import { AdminRoute } from "./components/AdminRoute";
 import { CustomerRoute } from "./components/CustomerRoute";
 import { Head } from "./components/Head";
+import { BookUpdate } from "./pages/bookUpdate/BookUpdate";
 
 export function Routes() {
   return (
@@ -56,7 +56,7 @@ export function Routes() {
 
         <Route path="/authorList" element={<AdminRoute><AuthorList/></AdminRoute>} />
         <Route path="/bookList" element={<AdminRoute><BookList/></AdminRoute>} />
-        <Route path="/bookEdit" element={<AdminRoute><BookEdit/></AdminRoute>} />
+        <Route path="/bookUpdate" element={<AdminRoute><BookUpdate/></AdminRoute>} />
 
         <Route path="/profile" element={<CustomerRoute><Profile/></CustomerRoute>}>
           <Route path="/profile" index element={<CustomerRoute><MyAccount/></CustomerRoute>} />
