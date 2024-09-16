@@ -1,11 +1,12 @@
 import { createContext, useState } from "react";
+
 import { User } from "../models/User"
 import { api } from "../services/api";
 
 type AuthContextData = {
   user: User | null;
   isSigned: boolean;
-  login: (email: string, password: string) => Promise<void>;
+  login: (email: string, password: string) => Promise<{ role: string; }>;
   logout: () => void;
 }
 
@@ -32,7 +33,6 @@ type ApiAddress = {
   addressNumber: string;
   complement: string;
 }
-  
 
 type ApiLoginResponse = {
   user: ApiUser;
@@ -42,22 +42,7 @@ type ApiLoginResponse = {
 }
 
 export function AuthContextProvider({ children }: AuthContextProviderProps) {
-  const [user, setUser] = useState<User | null>({
-    name: "Jorge",
-    email: "jorge@email.com",
-    role: "ADASD",
-    cpf: "12345678901",
-    phone: "88992146067",
-    birthDate: "2003-02-01",
-    address: {
-      postalCode: "12345678",
-      state: "SP",
-      neighborhood: "Vila Nova",
-      street: "Av. das Nações Unidas",
-      addressNumber: "123",
-      complement: "Casa"
-    }
-  });
+  const [user, setUser] = useState<User | null>(null);
 
   function logout() {
     setUser(null);
@@ -70,7 +55,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     }
 
     const response = await api.post<ApiLoginResponse>("/auth/login", requestBody);
-    const { accessToken, address, user } = response.data;
+    const { accessToken, user } = response.data;
 
     setUser({
       name: user.name,
@@ -79,10 +64,14 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
       birthDate: user.birthDate,
       cpf: user.cpf,
       phone: user.phone,
-      address: address
+      address: null
     });
 
     api.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
+
+    return {
+      role: user.role
+    }
   }
 
   return (
