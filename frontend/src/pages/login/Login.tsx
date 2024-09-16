@@ -19,8 +19,13 @@ function Login() {
 
         try {
             setIsLoading(true);
-            await login(email, password);
-            navigate("/")
+            const result = await login(email, password);
+            
+            if(result.role === "ADMIN"){
+                navigate("/adm")
+            } else if(result.role === "CUSTOMER"){
+                navigate("/")
+            }
         } catch (error) {
             alert("Erro ao fazer login")
         } finally{

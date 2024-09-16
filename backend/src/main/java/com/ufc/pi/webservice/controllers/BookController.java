@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ufc.pi.webservice.dtos.input.CreateBookDTO;
+import com.ufc.pi.webservice.models.Book;
 import com.ufc.pi.webservice.services.BookService;
 
 import lombok.RequiredArgsConstructor;
@@ -43,6 +44,17 @@ public class BookController {
             return ResponseEntity.ok("Livro atualizado com sucesso!");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro ao atualizar o livro: " + e.getMessage());
+        }
+    }
+
+        // Nova rota para obter os detalhes de um livro
+    @GetMapping("/{id}/details")
+    public ResponseEntity<?> getBookDetails(@PathVariable Long id) {
+        try {
+            Book book = bookService.getBookDetailsById(id);
+            return ResponseEntity.ok(book);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 }

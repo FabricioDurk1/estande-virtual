@@ -84,5 +84,15 @@ public class BookService {
         // Atualizar no banco de dados
         bookRepository.update(book);
     }
+
+    public Book getBookDetailsById(Long id) throws Exception {
+        Optional<Book> bookOptional = bookRepository.findById(id);
+        
+        if (bookOptional.isEmpty()) {
+            throw new Exception("Livro não encontrado com o ID: " + id);
+        }
+
+        return bookOptional.get();
+    }
 }
 

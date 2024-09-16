@@ -44,3 +44,16 @@ CREATE TABLE IF NOT EXISTS books  (
    FOREIGN KEY (publisher_id) REFERENCES publishers(id),
    FOREIGN KEY (author_id) REFERENCES authors(id)
 );
+
+/** Creates credit cards table */
+CREATE TABLE IF NOT EXISTS credit_cards (
+   id INT AUTO_INCREMENT PRIMARY KEY,
+   name VARCHAR(255) NOT NULL,
+   flag VARCHAR(255) NOT NULL,
+   number VARCHAR(16) NOT NULL,
+   expiration_date DATE NOT NULL,
+   security_code VARCHAR(3) NOT NULL,
+   credit_limit DECIMAL(10, 2) NOT NULL,
+   user_id INT NOT NULL,
+   FOREIGN KEY (user_id) REFERENCES users(id)
+);

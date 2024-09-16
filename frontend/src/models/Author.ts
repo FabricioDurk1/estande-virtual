@@ -1,5 +1,4 @@
-export type Authors = {
-    id : number
-    nome : string;
-  }
-  
+export type Author = {
+  id : number
+  name : string;
+}
