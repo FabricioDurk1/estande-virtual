@@ -48,7 +48,7 @@ public class BookController {
     }
 
         // Nova rota para obter os detalhes de um livro
-    @GetMapping("/{id}/details")
+    @GetMapping("/{id}")
     public ResponseEntity<?> getBookDetails(@PathVariable Long id) {
         try {
             Book book = bookService.getBookDetailsById(id);

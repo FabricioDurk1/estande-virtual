@@ -38,9 +38,9 @@ export function AuthorUpdate() {
     try {
       setIsLoading(true);
       await api.put(`/authors/${params.authorId}`, requestBody);
-      alert("Editora editada com sucesso");
+      alert("Autor editada com sucesso");
       setIsLoading(false);
-      navigate("/authorsList");
+      navigate("/authorList");
     } catch (error) {
       setIsLoading(false);
       alert("Erro ao editar autor");
