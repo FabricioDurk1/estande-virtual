@@ -51,25 +51,25 @@ public class AuthorController {
     public ResponseEntity<List<Author>> getAllAuthors() {
         List<Author> authorsResponse = new ArrayList<>();
 
-    DoublyLinkedList<Author> authors = authorService.getAllAuthors();
-    DoublyLinkedList<Author>.Node current = authors.getHead();
+        DoublyLinkedList<Author> authors = authorService.getAllAuthors();
+        DoublyLinkedList<Author>.Node current = authors.getHead();
 
-    while (current != null) {
-        authorsResponse.add(current.data);
-        current = current.next;
-    }
+        while (current != null) {
+            authorsResponse.add(current.data);
+            current = current.next;
+        }
 
-    return ResponseEntity.ok(authorsResponse);
+        return ResponseEntity.ok(authorsResponse);
     }
 
         @GetMapping("/{id}")
-    public ResponseEntity<?> getAuthorById(@PathVariable Long id) {
-        try {
-            DoublyLinkedList<Author> author = authorService.findAuthorById(id);
-            return ResponseEntity.ok(author.getHead().data);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Erro: " + e.getMessage());
+        public ResponseEntity<?> getAuthorById(@PathVariable Long id) {
+            try {
+                DoublyLinkedList<Author> author = authorService.findAuthorById(id);
+                return ResponseEntity.ok(author.getHead().data);
+            } catch (Exception e) {
+                return ResponseEntity.badRequest().body("Erro: " + e.getMessage());
+            }
         }
-    }
 }
 

@@ -1,5 +1,6 @@
 package com.ufc.pi.webservice.repositories;
 
+import java.sql.ResultSet;
 import java.time.LocalDate;
 
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -94,7 +95,7 @@ public class CreditCardRepositoryImpl implements CreditCardRepository {
         );
     }
     
-    public CreditCard mapRowToCreditCard(java.sql.ResultSet rs, int rowNum) throws java.sql.SQLException {
+    public CreditCard mapRowToCreditCard(ResultSet rs, int rowNum) throws java.sql.SQLException {
         CreditCard entity = new CreditCard();
 
         entity.setId(rs.getInt("id"));

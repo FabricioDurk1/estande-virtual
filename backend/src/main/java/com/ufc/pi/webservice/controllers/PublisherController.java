@@ -3,11 +3,16 @@ package com.ufc.pi.webservice.controllers;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ufc.pi.webservice.data.structures.DoublyLinkedList;
 import com.ufc.pi.webservice.dtos.input.CreatePublisherDTO;
 import com.ufc.pi.webservice.dtos.input.UpdatePublisherDTO;
+import com.ufc.pi.webservice.models.Publisher;
 import com.ufc.pi.webservice.services.PublisherService;
 
 import lombok.RequiredArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,7 +37,17 @@ public class PublisherController {
 
     @GetMapping
     public ResponseEntity<?> getAllPublishers() {
-        return ResponseEntity.ok(publisherService.getAllPublishers());
+        List<Publisher> publishersResponse = new ArrayList<>();
+
+        DoublyLinkedList<Publisher> publishers = publisherService.getAllPublishers();
+        DoublyLinkedList<Publisher>.Node current = publishers.getHead();
+
+        while (current != null) {
+            publishersResponse.add(current.data);
+            current = current.next;
+        }
+
+        return ResponseEntity.ok(publishersResponse);
     }
 
     @GetMapping("/{id}")
