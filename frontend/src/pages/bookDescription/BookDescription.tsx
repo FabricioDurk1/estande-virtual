@@ -1,33 +1,63 @@
-import './bookDescription.css';
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
+import { api } from "../../services/api";
+import { Book } from "../../models";
+
+import "./bookDescription.css";
+import { Loader } from "../../components";
+
+type Params = "bookId";
 
 export function BookDescription() {
-    return (
-        <div className="general">
+  const { bookId } = useParams<Params>();
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [book, setBook] = useState<Book>();
+
+  async function getAuthor() {
+    try {
+      setIsLoading(true);
+      const response = await api.get<Book>(`/public/books/${bookId}`);
+      const loadedBook = response.data;
+
+      setBook(loadedBook);
+    } catch (error) {
+      alert("Erro ao buscar livro");
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    getAuthor();
+  }, []);
+
+  return (
+    <div className="general">
+      {isLoading ? (
+        <Loader />
+      ) : (
         <div className="form-container">
-            <h1>Detalhes do Livro</h1>
+          <h1>Detalhes do Livro</h1>
 
-            <div className="details-group">
-                <label className='general-labels'>Título:</label>
-                <p>Nome do Livro Exemplo</p>
-                <br />
-                <label className='general-labels'>Descrição:</label>
-                <p>Descrição detalhada do livro que explica seu conteúdo e público-alvo.</p>    
-                <br />
-                <label className='general-labels'>Autor:</label>
-                <p>Nome do Autor Exemplo</p>
-                <br />
-                <label className='general-labels'>Editora:</label>
-                <p>Nome da Editora Exemplo</p>
-            </div>
+          <div className="details-group">
+            <label className="general-labels">Título:</label>
+            <p>{book?.title}</p>
             <br />
-      
-            <button className="registerButton" type="button">Ver Vendas</button>
-
+            <label className="general-labels">Descrição:</label>
+            <p>
+              {book?.description}
+            </p>
+            <br />
+            <label className="general-labels">Autor:</label>
+            <p>{book?.author.name}</p>
+            <br />
+            <label className="general-labels">Editora:</label>
+            <p>{book?.publisher.name}</p>
+          </div>
         </div>
+      )}
     </div>
-
-    )
+  );
 }
-
-

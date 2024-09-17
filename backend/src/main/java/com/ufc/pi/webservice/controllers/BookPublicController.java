@@ -14,6 +14,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("api/v1/public")
@@ -34,5 +35,17 @@ public class BookPublicController {
         }
 
         return ResponseEntity.ok(booksResponse);
+    }
+
+    
+    // Nova rota para obter os detalhes de um livro
+    @GetMapping("/books/{id}")
+    public ResponseEntity<?> getBookDetails(@PathVariable Long id) {
+        try {
+            Book book = bookService.getBookDetailsById(id);
+            return ResponseEntity.ok(book);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }
