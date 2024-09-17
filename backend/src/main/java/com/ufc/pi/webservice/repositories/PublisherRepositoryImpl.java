@@ -1,14 +1,14 @@
 package com.ufc.pi.webservice.repositories;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Repository;
 
-import com.ufc.pi.webservice.database.PublisherMapper;
+import com.ufc.pi.webservice.data.structures.DoublyLinkedList;
 import com.ufc.pi.webservice.database.PublisherTable;
 import com.ufc.pi.webservice.models.Publisher;
 import com.ufc.pi.webservice.utils.ParamReplacer;
@@ -19,7 +19,6 @@ import lombok.RequiredArgsConstructor;
 @Repository
 public class PublisherRepositoryImpl implements PublisherRepository {
     private final JdbcTemplate jdbcTemplate;
-    private final PublisherMapper publisherMapper;
 
     @Override
     public void create(Publisher publisher) {
@@ -73,15 +72,10 @@ public class PublisherRepositoryImpl implements PublisherRepository {
     }
 
     @Override
-    public Optional<Publisher> findById(Long id) {
-        final String PARAMETERIZED_COMMAND = "SELECT * FROM :tableName WHERE :idColumn = ?";
+    public DoublyLinkedList<Publisher> findById(Long id) {
+        final String query = "SELECT * FROM publishers WHERE :idColumn = ?";
 
-        HashMap<String, String> tableStructureParams = new HashMap<>();
-
-        tableStructureParams.put("tableName", PublisherTable.TABLE_NAME);
-        tableStructureParams.put("idColumn", PublisherTable.ID_COLUMN);
-
-        final String tableStructuredCommand = ParamReplacer.fillParams(PARAMETERIZED_COMMAND, tableStructureParams);
+        DoublyLinkedList<Publisher> publishers = new DoublyLinkedList<>();
 
         PreparedStatementSetter queryDynamicParamsSetter = new PreparedStatementSetter() {
             @Override
@@ -90,28 +84,43 @@ public class PublisherRepositoryImpl implements PublisherRepository {
             }
         };
 
-        var result = jdbcTemplate.query(tableStructuredCommand, queryDynamicParamsSetter, this.publisherMapper);
+        jdbcTemplate.query(query, queryDynamicParamsSetter, (rs, rowNum) -> {
+            Publisher publisher = mapRow(rs, rowNum);
+            publishers.addNode(publisher);
+            return publisher;
+        });
 
-        if (result.isEmpty()) {
-            return Optional.empty();
-        }
-
-        return Optional.of(result.get(0));
+        return publishers;
     }
 
     @Override
-    public List<Publisher> findAll() {
-        final String PARAMETERIZED_COMMAND = "SELECT * FROM :tableName";
+    public DoublyLinkedList<Publisher> findAll() {
+        final String sql = "SELECT * FROM publishers";
 
-        HashMap<String, String> tableStructureParams = new HashMap<>();
+        DoublyLinkedList<Publisher> publishers = new DoublyLinkedList<>();
 
-        tableStructureParams.put("tableName", PublisherTable.TABLE_NAME);
+        jdbcTemplate.query(
+            sql,
+            (rs, rowNum) -> {
+                Publisher publisher = mapRow(rs, rowNum);
+                publishers.addNode(publisher);
+                return publisher;
+            }
+        );
 
-        final String tableStructuredCommand = ParamReplacer.fillParams(PARAMETERIZED_COMMAND, tableStructureParams);
-        var result = jdbcTemplate.query(tableStructuredCommand, this.publisherMapper);
-
-        return result;
+        return publishers;
     }
 
+    public Publisher mapRow(ResultSet resultSet, int rowNum) throws SQLException {
+        Long id = resultSet.getLong("id");
+        String name = resultSet.getString("name");
+
+        Publisher publisher = new Publisher();
+
+        publisher.setId(id);
+        publisher.setName(name);
+
+        return publisher;
+    }
     
 }

@@ -1,10 +1,8 @@
 package com.ufc.pi.webservice.services;
 
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 
+import com.ufc.pi.webservice.data.structures.DoublyLinkedList;
 import com.ufc.pi.webservice.dtos.input.CreatePublisherDTO;
 import com.ufc.pi.webservice.dtos.input.UpdatePublisherDTO;
 import com.ufc.pi.webservice.models.Publisher;
@@ -25,30 +23,30 @@ public class PublisherService {
     }
 
     public void updatePublisher(Long id, UpdatePublisherDTO updatePublisherDTO) throws Exception {
-        Optional<Publisher> publisherOptional = publisherRepository.findById(id);
+        DoublyLinkedList<Publisher> publisherOptional = publisherRepository.findById(id);
 
-        if(publisherOptional.isEmpty()){
+        if(publisherOptional.getHead() == null) {
             throw new Exception("Não existe uma editora com o id " + id.toString());
         }
 
-        Publisher existingPublisher = publisherOptional.get();
+        Publisher existingPublisher = publisherOptional.getHead().data;
         existingPublisher.setName(updatePublisherDTO.name());
 
         publisherRepository.update(existingPublisher);
     }
 
-    public List<Publisher> getAllPublishers() {
-        List<Publisher> publishers = publisherRepository.findAll();
+    public DoublyLinkedList<Publisher> getAllPublishers() {
+        DoublyLinkedList<Publisher> publishers = publisherRepository.findAll();
         return publishers;
     }
 
     public Publisher getPublisherById(Long id) throws Exception {
-        Optional<Publisher> publisherOptional = publisherRepository.findById(id);
+        DoublyLinkedList<Publisher> publisherOptional = publisherRepository.findById(id);
 
-        if(publisherOptional.isEmpty()){
+        if(publisherOptional.getHead() == null) {
             throw new Exception("Editora não encontrada");
         }
 
-        return publisherOptional.get();
+        return publisherOptional.getHead().data;
     }
 }

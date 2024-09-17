@@ -86,7 +86,7 @@ export function CreditCardRegister() {
               id="state"
               onChange={(event) => setFlag(event.target.value)}
             >
-              <option value={""}>Selecione seu estado</option>
+              <option value={""}>Selecione a bandeira</option>
 
               {creditCardFlags.map((option) => {
                 return <option key={option.value} value={option.value}>{option.name}</option>;
