@@ -4,8 +4,20 @@ import { useNavigate, useParams } from "react-router-dom";
 import "./creditCardUpdate.css";
 
 import { api } from "../../services/api";
-import { getOnlyNumbers, maskCreditCardNumber, maskExpirationDate, maskMoney, maskOnlyNumber, removeMoneyMask } from "../../utils/masks";
+import { getOnlyNumbers, maskCreditCardNumber, maskExpirationDate, maskMoney, maskOnlyNumber, removeExpirationDateMask, removeMoneyMask } from "../../utils/masks";
 import { creditCardFlags } from "../../utils/constants/creditCard";
+import { getFormattedExpirationDate } from "../../utils/formatters";
+
+type ApiCreditCard = {
+  id: number;
+  name: string;
+  number: string;
+  expirationDate: string;
+  securityCode: string;
+  flag: string;
+  creditLimit: number;
+}
+
 
 type Params = "creditCardId";
 
@@ -25,20 +37,20 @@ export function CreditCardUpdate() {
     event.preventDefault();
 
     const requestBody = {
-      cardName: name,
-      cardNumber: getOnlyNumbers(cardNumber),
-      expirationDate: expirationDate,
+      name: name,
+      number: getOnlyNumbers(cardNumber),
+      expirationDate: removeExpirationDateMask(expirationDate),
       securityCode: getOnlyNumbers(securityCode),
-      limit: removeMoneyMask(limit),
+      creditLimit: removeMoneyMask(limit),
       flag: flag
     };
 
     try {
       setIsLoading(true);
-      await api.put(`/credit-card/${params.creditCardId}`, requestBody);
+      await api.put(`/credit-cards/${params.creditCardId}`, requestBody);
 
       alert("Cartão de crédito atualizado com sucesso");
-      navigate("/profile");
+      navigate("/profile/myCards");
     } catch (error) {
       alert("Erro ao atualizar cartão de crédito");
     } finally {
@@ -49,15 +61,15 @@ export function CreditCardUpdate() {
   async function getCreditCard() {
     try {
       setIsLoading(true);
-      const response = await api.get(`/credit-card/${params.creditCardId}`);
+      const response = await api.get<ApiCreditCard>(`/credit-cards/${params.creditCardId}`);
 
       const loadedCreditCard = response.data;
-      
-      setName(loadedCreditCard.cardName);
-      setCardNumber(maskCreditCardNumber(loadedCreditCard.cardNumber));
+  
+      setName(loadedCreditCard.name);
+      setCardNumber(maskCreditCardNumber(loadedCreditCard.number));
       setSecurityCode(loadedCreditCard.securityCode);
-      setExpirationDate(loadedCreditCard.expirationDate);
-      setLimit(maskMoney(loadedCreditCard.limit));
+      setExpirationDate(getFormattedExpirationDate(loadedCreditCard.expirationDate));
+      setLimit(maskMoney(loadedCreditCard.creditLimit.toString()));
       setFlag(loadedCreditCard.flag);
 
     } catch (error) {
@@ -74,7 +86,7 @@ export function CreditCardUpdate() {
   return (
     <div className="total">
       <div className="form-container">
-        <h1>Cadastrar Cartão</h1>
+        <h1>Atualizar Cartão</h1>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="titulo">Nome do Cartão</label>
@@ -115,7 +127,7 @@ export function CreditCardUpdate() {
               id="state"
               onChange={(event) => setFlag(event.target.value)}
             >
-              <option value={""}>Selecione seu estado</option>
+              <option value={""}>Selecione a bandeira</option>
 
               {creditCardFlags.map((option) => {
                 return <option key={option.value} value={option.value}>{option.name}</option>;
@@ -166,7 +178,7 @@ export function CreditCardUpdate() {
           </div>
 
           <button disabled={isLoading} className="registerButton" type="submit">
-            Cadastrar
+            Salvar
           </button>
         </form>
       </div>
