@@ -60,15 +60,4 @@ public class BookController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro ao atualizar o livro: " + e.getMessage());
         }
     }
-
-        // Nova rota para obter os detalhes de um livro
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getBookDetails(@PathVariable Long id) {
-        try {
-            Book book = bookService.getBookDetailsById(id);
-            return ResponseEntity.ok(book);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
 }
