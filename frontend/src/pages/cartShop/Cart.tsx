@@ -12,8 +12,9 @@ function CartShop() {
   const [allBooks, setAllBooks] = useState<Book[]>([]);
 
   function addOnStack(book: Book) {
-    const updatedAllBooks = allBooks.filter((b) => b.id !== book.id);
     setStackBooks((prevState) => [book, ...prevState]);
+    
+    const updatedAllBooks = allBooks.filter((b) => b.id !== book.id);
     setAllBooks(updatedAllBooks);
   }
 
@@ -108,16 +109,16 @@ function CartShop() {
           <div className="cartTotalTitle">
             <h1 className="totalCart">Pacote</h1>
 
-            {stackBooks.map((book) => (
+            {stackBooks.map((book, index) => (
               <p
                 style={{ marginBottom: "1rem", textAlign: 'left', color: "#7A7A7A" }}
                 key={book.id}
               >
-                {book.title}
+                {index + 1} - {book.title}
               </p>
             ))}
 
-            <button className="remove-from-package" onClick={removeFromStack}>Remover do pacote</button>
+            {stackBooks.length > 0 && <button className="remove-from-package" onClick={removeFromStack}>Remover do pacote</button>}
           </div>
         </div>
       </div>
