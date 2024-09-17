@@ -1,9 +1,9 @@
 export type CreditCard = {
-  id: string;
+  id: number;
   number: string;
   flag: string;
   name: string;
-  expirationDate: Date;
+  expirationDate: string;
   securityCode: string;
   limit: number;
 }

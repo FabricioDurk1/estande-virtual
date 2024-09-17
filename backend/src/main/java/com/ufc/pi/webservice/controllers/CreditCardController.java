@@ -57,7 +57,8 @@ public class CreditCardController {
     public ResponseEntity<?> getCreditCardById(@PathVariable("id") Long id) {
         try {
             var publisher = creditCardService.getCreditCardById(id);
-            return ResponseEntity.ok(publisher);    
+
+            return ResponseEntity.ok(publisher.getHead().data);    
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }

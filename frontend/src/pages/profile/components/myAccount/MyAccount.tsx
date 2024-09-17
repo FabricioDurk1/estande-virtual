@@ -6,12 +6,11 @@ import { api } from "../../../../services/api";
 
 
 export function MyAccount() {
-  const { user } = useAuth()
+  const { user, updateUser } = useAuth()
 
   const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState("");
   const [birthDate, setBirthDate] = useState("");
-  const [email, setEmail] = useState("");
   const [cpf, setCpf] = useState("");
   const [phone, setPhone] = useState("");
 
@@ -44,12 +43,21 @@ export function MyAccount() {
       const requestBody = {
         name: name,
         birthDate: birthDate,
-        email: email,
         cpf: cpf.replace(/\D/g, ""),
-        phone: phone.replace(/\D/g, "")
+        phoneNumber : phone.replace(/\D/g, "")
       }
-
+      
       await api.put("/users", requestBody);
+
+      if(user){
+        updateUser({
+          ...user,
+          name: requestBody.name,
+          birthDate: requestBody.birthDate,
+          phone: requestBody.phoneNumber,
+          cpf: requestBody.cpf
+        });
+      }
 
       alert("Dados atualizados com sucesso");
     } catch (error) {
@@ -64,7 +72,6 @@ export function MyAccount() {
     if (user) {
       setName(user.name)
       setBirthDate(user.birthDate)
-      setEmail(user.email)
       setCpf(maskCPF(user.cpf))
       setPhone(maskPhone(user.phone))
     }
@@ -102,21 +109,6 @@ export function MyAccount() {
               placeholder="Digite sua data de nascimento"
               value={birthDate}
               onChange={(event) => setBirthDate(event.target.value)}
-              required
-            ></input>
-          </div>
-
-          <div className="form-group">
-            <label id="email-label" htmlFor="email">
-              Email:
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="Digite sue e-mail"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
               required
             ></input>
           </div>

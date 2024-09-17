@@ -6,13 +6,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ufc.pi.webservice.models.User;
+import com.ufc.pi.webservice.dtos.input.UpdateAddressDTO;
+import com.ufc.pi.webservice.dtos.input.UpdateUserDTO;
+import com.ufc.pi.webservice.dtos.output.ActionResultOutputDTO;
 import com.ufc.pi.webservice.services.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
+import org.springframework.web.bind.annotation.PutMapping;
 
 
 @RestController
@@ -22,17 +21,26 @@ public class UserController {
   @Autowired
   private UserService userService;
 
-  @GetMapping("/{email}")
-  public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
-      return userService.findByEmail(email)
-      .map(user -> ResponseEntity.ok().body(user))
-      .orElse(ResponseEntity.notFound().build());
-  }
-  
-  @PostMapping
-  public ResponseEntity<Void> createUser(@RequestBody User user) {
-    userService.createUser(user);
-    return ResponseEntity.status(HttpStatus.CREATED).build();
+  @PutMapping
+  public ResponseEntity<?> updateUser(@RequestBody UpdateUserDTO updateUserDTO) {
+      
+      try {
+        userService.update(updateUserDTO);
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ActionResultOutputDTO("Usuário atualizado com sucesso"));
+      } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ActionResultOutputDTO(e.getMessage()));
+      }
   }
 
+  @PutMapping("/address")
+  public ResponseEntity<?> updateUserAddress(@RequestBody UpdateAddressDTO updateAddressDTO) {
+
+    try {
+      userService.updateAddress(updateAddressDTO);
+      return ResponseEntity.status(HttpStatus.OK).body(new ActionResultOutputDTO("Endereço atualizado com sucesso"));
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ActionResultOutputDTO(e.getMessage()));
+    }
+  }
 }

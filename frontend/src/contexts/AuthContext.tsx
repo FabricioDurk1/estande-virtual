@@ -2,11 +2,13 @@ import { createContext, useState } from "react";
 
 import { User } from "../models/User"
 import { api } from "../services/api";
+import { Address } from "../models";
 
 type AuthContextData = {
   user: User | null;
   isSigned: boolean;
   login: (email: string, password: string) => Promise<{ role: string; }>;
+  updateUser: (user: User) => void;
   logout: () => void;
 }
 
@@ -26,12 +28,13 @@ type ApiUser = {
 }
 
 type ApiAddress = {
-  postalCode: string;
+  zipCode: string;
   state: string;
   neighborhood: string;
   street: string;
-  addressNumber: string;
+  number: string;
   complement: string;
+  city: string;
 }
 
 type ApiLoginResponse = {
@@ -55,7 +58,21 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     }
 
     const response = await api.post<ApiLoginResponse>("/auth/login", requestBody);
-    const { accessToken, user } = response.data;
+    const { accessToken, user, address } = response.data;
+
+    let userAddress: Address | null = null;
+
+    if (address) {
+      userAddress = {
+        postalCode: address.zipCode,
+        state: address.state,
+        neighborhood: address.neighborhood,
+        street: address.street,
+        addressNumber: address.number,
+        complement: address.complement,
+        city: address.city
+      }
+    }
 
     setUser({
       name: user.name,
@@ -64,7 +81,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
       birthDate: user.birthDate,
       cpf: user.cpf,
       phone: user.phone,
-      address: null
+      address: userAddress
     });
 
     api.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
@@ -74,8 +91,12 @@ export function AuthContextProvider({ children }: AuthContextProviderProps) {
     }
   }
 
+  function updateUser(user: User) {
+    setUser(user);
+  }
+
   return (
-    <AuthContext.Provider value={{ user, login, isSigned: !!user, logout }}>
+    <AuthContext.Provider value={{ user, login, updateUser, isSigned: !!user, logout }}>
       {children}
     </AuthContext.Provider>
   );

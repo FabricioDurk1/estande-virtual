@@ -7,7 +7,6 @@ import com.ufc.pi.webservice.data.structures.DoublyLinkedList;
 import com.ufc.pi.webservice.dtos.input.CreateAuthorDTO;
 import com.ufc.pi.webservice.dtos.input.UpdateAuthorDTO;
 import com.ufc.pi.webservice.models.Author;
-import com.ufc.pi.webservice.models.CreditCard;
 import com.ufc.pi.webservice.services.AuthorService;
 
 import lombok.RequiredArgsConstructor;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController

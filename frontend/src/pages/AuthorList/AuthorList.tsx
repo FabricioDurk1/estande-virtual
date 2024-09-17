@@ -33,7 +33,7 @@ export function AuthorList() {
     <div className="author-list-container">
       <div className="author-list-header">
         <h1 className="author-list-title">Lista de Autores</h1>
-        <button>Cadastrar</button>
+        <button onClick={() => navigate("/authorRegister")}>Cadastrar</button>
       </div>
 
       {isLoading ? (

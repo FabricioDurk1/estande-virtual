@@ -62,7 +62,13 @@ public class CreditCardService {
             throw new Exception("Cartão de crédito já existe");
         }
 
-        var creditCard = creditCards.getHead().data;
+        DoublyLinkedList<CreditCard> creditCardList = getCreditCardById(id);
+        
+        if(creditCardList.getHead() == null) {
+            throw new Exception("Cartão de crédito não encontrado");
+        }
+
+        var creditCard = creditCardList.getHead().data;
         
         creditCard.setName(updateCreditCardDTO.name());
         creditCard.setFlag(updateCreditCardDTO.flag());

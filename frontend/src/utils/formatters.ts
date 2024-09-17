@@ -10,8 +10,8 @@ export function formatAmountToCurrency(amount: number){
   })
 }
 
-export function getFormattedExpirationDate(expirationDate: Date){
-  const expirationYearFinalDigits = expirationDate.getFullYear().toString().slice(2,4);
-  const formattedExpirationMonth = (expirationDate.getMonth() + 1).toString().padStart(2, '0');
-  return `${formattedExpirationMonth} / ${expirationYearFinalDigits}`;
+export function getFormattedExpirationDate(value: string){
+  const [year, month] = value.split('-');
+  const yearTwoLastDigits = year.slice(-2);
+  return `${month.padStart(2, '0')}/${yearTwoLastDigits}`;
 }
