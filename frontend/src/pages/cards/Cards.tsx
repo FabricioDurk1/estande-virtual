@@ -4,7 +4,7 @@ import BookCard from "../../components/BookCard";
 import { Book } from "../../models";
 
 import "./cards.css";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { api } from "../../services/api";
 import { Loader } from "../../components";
 import { useAuth } from "../../hooks/useAuth";
@@ -13,8 +13,15 @@ function Cards() {
   const navigate = useNavigate();
   const { user } = useAuth();
 
+  const [searchText, setSearchText] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [books, setBooks] = useState<Book[]>([]);
+
+  const { filteredBooks } = useMemo(() => {
+    return {
+      filteredBooks: books.filter((book) => book.title.toLowerCase().includes(searchText.toLowerCase())),
+    };
+  }, [books, searchText]);
 
   async function getAllBooks() {
     setIsLoading(true);
@@ -39,7 +46,16 @@ function Cards() {
     <div className="cards">
       <div className="book-list-header">
         <h1 className="book-list-title">Lista de livros</h1>
-        {user?.role === "ADMIN" && (
+
+        <input
+          type="text"
+          id="searchBookInput"
+          name="searchBook"
+          placeholder="Pesquisar livros..."
+          onChange={(event) => setSearchText(event.target.value)}
+        ></input>
+
+        {user?.role && "ADMIN" && (
           <button
             className="book-list-button"
             onClick={() => navigate("/bookRegister")}
@@ -53,7 +69,7 @@ function Cards() {
         <Loader />
       ) : (
         <div className="general-books">
-          {books.map((book) => {
+          {filteredBooks.map((book) => {
             return <BookCard book={book} />;
           })}
         </div>

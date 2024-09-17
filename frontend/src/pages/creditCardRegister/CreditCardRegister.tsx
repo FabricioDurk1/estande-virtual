@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./creditCardRegister.css";
 
 import { api } from "../../services/api";
-import { getOnlyNumbers, maskCreditCardNumber, maskExpirationDate, maskMoney, maskOnlyNumber, removeMoneyMask } from "../../utils/masks";
+import { getOnlyNumbers, maskCreditCardNumber, maskExpirationDate, maskMoney, maskOnlyNumber, removeExpirationDateMask, removeMoneyMask } from "../../utils/masks";
 import { creditCardFlags } from "../../utils/constants/creditCard";
 
 export function CreditCardRegister() {
@@ -21,20 +21,20 @@ export function CreditCardRegister() {
     event.preventDefault();
 
     const requestBody = {
-      cardName: name,
-      cardNumber: getOnlyNumbers(cardNumber),
-      expirationDate: expirationDate,
+      name: name,
+      number: getOnlyNumbers(cardNumber),
+      expirationDate: removeExpirationDateMask(expirationDate),
       securityCode: getOnlyNumbers(securityCode),
-      limit: removeMoneyMask(limit),
+      creditLimit: removeMoneyMask(limit),
       flag: flag
     };
 
     try {
       setIsLoading(true);
-      await api.post("/credit-card", requestBody);
+      await api.post("/credit-cards", requestBody);
 
       alert("Cartão de crédito cadastrado com sucesso");
-      navigate("/profile");
+      navigate("/profile/myCards");
     } catch (error) {
       alert("Erro ao cadastrar cartão de crédito");
     } finally {

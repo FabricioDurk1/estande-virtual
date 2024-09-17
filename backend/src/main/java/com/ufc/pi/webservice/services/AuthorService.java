@@ -1,15 +1,11 @@
 package com.ufc.pi.webservice.services;
 
-import java.util.List;
-import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 
 import com.ufc.pi.webservice.data.structures.DoublyLinkedList;
 import com.ufc.pi.webservice.dtos.input.CreateAuthorDTO;
 import com.ufc.pi.webservice.dtos.input.UpdateAuthorDTO;
 import com.ufc.pi.webservice.models.Author;
-import com.ufc.pi.webservice.models.CreditCard;
 import com.ufc.pi.webservice.repositories.AuthorRespository;
 
 import lombok.RequiredArgsConstructor;

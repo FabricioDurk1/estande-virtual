@@ -5,4 +5,5 @@ export type Address = {
   street: string;
   addressNumber: string;
   complement: string;
+  city: string;
 }

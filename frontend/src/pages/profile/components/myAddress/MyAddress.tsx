@@ -3,39 +3,40 @@ import { useEffect, useState } from "react";
 import "./myAddress.css";
 import { useAuth } from "../../../../hooks/useAuth";
 import { api } from "../../../../services/api";
+import { getOnlyNumbers } from "../../../../utils/masks";
 
 const brazilianStates = [
-  { label: 'Acre', value: 'AC' },
-  { label: 'Alagoas', value: 'AL' },
-  { label: 'Amapá', value: 'AP' },
-  { label: 'Amazonas', value: 'AM' },
-  { label: 'Bahia', value: 'BA' },
-  { label: 'Ceará', value: 'CE' },
-  { label: 'Distrito Federal', value: 'DF' },
-  { label: 'Espírito Santo', value: 'ES' },
-  { label: 'Goiás', value: 'GO' },
-  { label: 'Maranhão', value: 'MA' },
-  { label: 'Mato Grosso', value: 'MT' },
-  { label: 'Mato Grosso do Sul', value: 'MS' },
-  { label: 'Minas Gerais', value: 'MG' },
-  { label: 'Pará', value: 'PA' },
-  { label: 'Paraíba', value: 'PB' },
-  { label: 'Paraná', value: 'PR' },
-  { label: 'Pernambuco', value: 'PE' },
-  { label: 'Piauí', value: 'PI' },
-  { label: 'Rio de Janeiro', value: 'RJ' },
-  { label: 'Rio Grande do Norte', value: 'RN' },
-  { label: 'Rio Grande do Sul', value: 'RS' },
-  { label: 'Rondônia', value: 'RO' },
-  { label: 'Roraima', value: 'RR' },
-  { label: 'Santa Catarina', value: 'SC' },
-  { label: 'São Paulo', value: 'SP' },
-  { label: 'Sergipe', value: 'SE' },
-  { label: 'Tocantins', value: 'TO' }
+  { label: "Acre", value: "AC" },
+  { label: "Alagoas", value: "AL" },
+  { label: "Amapá", value: "AP" },
+  { label: "Amazonas", value: "AM" },
+  { label: "Bahia", value: "BA" },
+  { label: "Ceará", value: "CE" },
+  { label: "Distrito Federal", value: "DF" },
+  { label: "Espírito Santo", value: "ES" },
+  { label: "Goiás", value: "GO" },
+  { label: "Maranhão", value: "MA" },
+  { label: "Mato Grosso", value: "MT" },
+  { label: "Mato Grosso do Sul", value: "MS" },
+  { label: "Minas Gerais", value: "MG" },
+  { label: "Pará", value: "PA" },
+  { label: "Paraíba", value: "PB" },
+  { label: "Paraná", value: "PR" },
+  { label: "Pernambuco", value: "PE" },
+  { label: "Piauí", value: "PI" },
+  { label: "Rio de Janeiro", value: "RJ" },
+  { label: "Rio Grande do Norte", value: "RN" },
+  { label: "Rio Grande do Sul", value: "RS" },
+  { label: "Rondônia", value: "RO" },
+  { label: "Roraima", value: "RR" },
+  { label: "Santa Catarina", value: "SC" },
+  { label: "São Paulo", value: "SP" },
+  { label: "Sergipe", value: "SE" },
+  { label: "Tocantins", value: "TO" }
 ];
 
 export function MyAddress() {
-  const { user } = useAuth();
+  const { user, updateUser } = useAuth();
 
   const [isLoading, setIsLoading] = useState(false);
   const [postalCode, setPostCode] = useState("");
@@ -44,7 +45,7 @@ export function MyAddress() {
   const [street, setStreet] = useState("");
   const [addressNumber, setAddressNumber] = useState("");
   const [complement, setComplement] = useState("");
-
+  const [city, setCity] = useState("");
 
   function maskPostalCode(value: string) {
     if (!value) return "";
@@ -60,15 +61,33 @@ export function MyAddress() {
       setIsLoading(true);
 
       const requestBody = {
-        postalCode: postalCode.replace(/\D/g, ""),
-        state: state,
-        neighborhood: neighborhood,
         street: street,
-        addressNumber: addressNumber,
-        complement: complement 
+        number: addressNumber,
+        complement: complement,
+        neighborhood: neighborhood,
+        city: city,
+        state: state,
+        zipCode: getOnlyNumbers(postalCode)
       };
 
-      await api.put("/address", requestBody);
+      await api.put("/users/address", requestBody);
+
+      if (user) {
+        updateUser({
+          ...user,
+
+          address: {
+            postalCode: requestBody.zipCode,
+            state: requestBody.state,
+            neighborhood: requestBody.neighborhood,
+            street: requestBody.street,
+            addressNumber: requestBody.number,
+            complement: requestBody.complement,
+            city: requestBody.city
+          }
+        });
+      }
+
       alert("Dados atualizados com sucesso");
     } catch (error) {
       alert("Erro ao atualizar os dados");
@@ -79,7 +98,7 @@ export function MyAddress() {
 
   useEffect(() => {
     if (user?.address) {
-      const { address } = user
+      const { address } = user;
 
       setPostCode(maskPostalCode(address.postalCode));
       setState(address.state);
@@ -87,6 +106,7 @@ export function MyAddress() {
       setStreet(address.street);
       setAddressNumber(address.addressNumber);
       setComplement(address.complement);
+      setCity(address.city);
     }
   }, [user?.address]);
 
@@ -106,7 +126,9 @@ export function MyAddress() {
               placeholder="Informe seu CEP"
               maxLength={9}
               value={postalCode}
-              onChange={(event) => setPostCode(maskPostalCode(event.target.value))}
+              onChange={(event) =>
+                setPostCode(maskPostalCode(event.target.value))
+              }
               required
             ></input>
           </div>
@@ -115,17 +137,34 @@ export function MyAddress() {
             <label id="state-label" htmlFor="state">
               Estado
             </label>
-            <select value={state} name="state" required id="state" onChange={(event) => setState(event.target.value)}> 
-              <option value={''}>Selecione seu estado</option>
+            <select
+              value={state}
+              name="state"
+              required
+              id="state"
+              onChange={(event) => setState(event.target.value)}
+            >
+              <option value={""}>Selecione seu estado</option>
 
-              {
-                brazilianStates.map((option) => {
-                  return (
-                    <option value={option.value}>{option.label}</option>
-                  )
-                })
-              }
+              {brazilianStates.map((option) => {
+                return <option value={option.value}>{option.label}</option>;
+              })}
             </select>
+          </div>
+
+          <div className="form-group">
+            <label id="city-label" htmlFor="city">
+              Cidade
+            </label>
+            <input
+              type="city"
+              id="city"
+              name="city"
+              placeholder="Informe sua cidade"
+              value={city}
+              onChange={(event) => setCity(event.target.value)}
+              required
+            ></input>
           </div>
 
           <div className="form-group">
@@ -184,7 +223,6 @@ export function MyAddress() {
               placeholder="Digite seu complemento"
               value={complement}
               onChange={(event) => setComplement(event.target.value)}
-              required
             ></input>
           </div>
 

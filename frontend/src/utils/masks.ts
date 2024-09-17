@@ -42,6 +42,11 @@ export function removeMoneyMask(formattedValue: string){
   return parseFloat(numericValue);
 }
 
+export function removeExpirationDateMask(value: string){
+  const [month, year] = value.split('/');
+  return `20${year}-${month}-01`;
+}
+
 export function getOnlyNumbers(value: string){
   return value.replace(/\D/g, '')
 }
