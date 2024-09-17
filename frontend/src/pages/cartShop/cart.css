@@ -117,3 +117,15 @@ hr {
     cursor: pointer;
     margin: 0;
 }
+
+.remove-from-package {
+    background-color: #005f96;
+    color: #FFF;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 1rem;
+    cursor: pointer;
+    margin: 0;
+    width: 100%;
+    margin: 1rem 0rem;
+}
