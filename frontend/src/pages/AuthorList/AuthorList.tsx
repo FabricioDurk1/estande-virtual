@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import "./authorList.css";
@@ -6,6 +6,7 @@ import "./authorList.css";
 import { Author } from "../../models/Author";
 import { api } from "../../services/api";
 import { Loader } from "../../components";
+import { AuthorRegister } from "../authorRegister/AuthorRegister";
 
 export function AuthorList() {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ export function AuthorList() {
     <div className="author-list-container">
       <div className="author-list-header">
         <h1 className="author-list-title">Lista de Autores</h1>
-        <button>Cadastrar</button>
+        <Link to={"/authorRegister"}><button>Cadastrar</button></Link>
       </div>
 
       {isLoading ? (
@@ -57,7 +58,7 @@ export function AuthorList() {
                 </td>
 
                 <td className="btn-action-container">
-                  <button className="btn btn-delete">Deletar</button>
+                 <button className="btn btn-delete">Deletar</button>
                 </td>
               </tr>
             ))}
